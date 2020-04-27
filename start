@@ -1,0 +1,13 @@
+#!/bin/sh
+
+CMD="$*"
+
+if [ -z "$CMD" ]; then
+    CMD="python3 eloipool.py"
+fi
+
+exec docker run \
+     -e LOCAL_USER_ID="$(id -u)" -e LOCAL_GROUP_ID="$(id -g)" \
+     --rm -it \
+     -v "$(pwd)"/eloipool_data:/home/user/eloipool_data \
+     eloipool "$CMD"
